@@ -28,7 +28,7 @@ describe('client', function() {
     var dataToSend = {hello: 'world'};
 
     client.send(clientConfig, dataToSend, function() {
-      expect(request.post.args[0][0]).to.equal(clientConfig.serverUrl);
+      expect(request.post.args[0][0]).to.equal(`${clientConfig.serverUrl}${clientConfig.lowBatteryPath}`);
       expect(request.post.args[0][1]).to.deep.equal({json: JSON.stringify(dataToSend)});
       return done();
     });

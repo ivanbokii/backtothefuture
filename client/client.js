@@ -20,7 +20,7 @@ client.generateLowBatteryData = function() {
 
 client.send = function(config, data, done) {
   var jsonData = JSON.stringify(data);
-  request.post(config.serverUrl, {json: jsonData}, done);
+  request.post(`${config.serverUrl}${config.lowBatteryPath}`, {json: jsonData}, done);
 };
 
 module.exports = client;

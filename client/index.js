@@ -9,7 +9,7 @@ var send = function(done) {
   client.send(config, data, done);
 };
 
-var handleResponse = function(err) {
+var handleResponse = function(err, response) {
   if (err) {
     console.log(colors.red(err));
     console.log(colors.red("Sorry, there was some error while sending the data. Terminating."));
@@ -26,7 +26,7 @@ if (program.repeat) {
 
   setInterval(function() {
     send(handleResponse);
-  }, program.interval);
+  }, program.repeat * 1000);
 } else {
   console.log(colors.green("SINGLE SEND"));
   send(handleResponse);
