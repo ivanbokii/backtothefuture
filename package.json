@@ -1,0 +1,21 @@
+{
+  "name": "b2m",
+  "version": "1.0.0",
+  "description": "test assignment",
+  "main": "server/index.js",
+  "scripts": {
+    "test": "echo \"Nothing here for now\" && exit 1"
+  },
+  "author": "ivanbokii",
+  "license": "ISC",
+  "dependencies": {
+    "colors": "^1.1.2",
+    "commander": "^2.9.0",
+    "lodash": "^4.8.2"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^2.4.5",
+    "sinon": "^1.17.3"
+  }
+}
