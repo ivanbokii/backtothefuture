@@ -83,6 +83,16 @@ server.register(inert, function() {
     }
   });
 
+  server.route({
+    method: 'GET',
+    path: '/{param*}',
+    handler: {
+      directory: {
+        path: './server/public'
+      }
+    }
+  });
+
   server.start(function(err) {
     if (err) {
       throw err;

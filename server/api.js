@@ -32,7 +32,7 @@ api.averageForDay = function(timestamp, done) {
 
     var total = docs.length;
     var levelSum = _.sumBy(docs, 'value');
-    var result = total !== 0 ? levelSum / total : -1;
+    var result = total !== 0 ? levelSum / total : 0;
 
     return done(null, result);
   });

@@ -110,7 +110,7 @@ describe('api', function() {
       });
     });
 
-    it('should return -1 if there were no records for a day', function(done) {
+    it('should return 0 if there were no records for a day', function(done) {
       var timestamp = Date.now();
       var startOfDay = moment.utc(timestamp).startOf('day');
       var endOfDay = moment.utc(timestamp).endOf('day');
@@ -124,7 +124,7 @@ describe('api', function() {
         .yields(null, docs);
 
       api.averageForDay(timestamp, function(err, average) {
-        expect(average).to.equal(-1);
+        expect(average).to.equal(0);
         return done();
       });
     });
