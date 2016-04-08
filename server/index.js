@@ -41,6 +41,48 @@ server.register(inert, function() {
     }
   });
 
+  server.route({
+    method: 'GET',
+    path: '/api/day/{timestamp}/total',
+    handler: function(request, reply) {
+      api.totalForDay(request.params.timestamp, function(err, data) {
+        if (err) {
+          return reply(err).code(500);
+        }
+
+        return reply(data).code(200);
+      });
+    },
+    config: {
+      validate: {
+        params: {
+          timestamp: Joi.date().timestamp('javascript')
+        }
+      }
+    }
+  });
+
+  server.route({
+    method: 'GET',
+    path: '/api/day/{timestamp}/average',
+    handler: function(request, reply) {
+      api.averageForDay(request.params.timestamp, function(err, data) {
+        if (err) {
+          return reply(err).code(500);
+        }
+
+        return reply(data).code(200);
+      });
+    },
+    config: {
+      validate: {
+        params: {
+          timestamp: Joi.date().timestamp('javascript')
+        }
+      }
+    }
+  });
+
   server.start(function(err) {
     if (err) {
       throw err;
