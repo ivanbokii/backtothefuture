@@ -5,6 +5,8 @@ This repo. contains an implementation of a server that receives low battery even
 You can find deployed version of this project here: http://b2m.ivanbokii.com. It uses a special client that sends data in 
 random intervals - from 1 second to 10 minutes.
 
+NodeJS version used for this implementation is 5.6.0
+
 Installation
 ----------------
 ```bash
