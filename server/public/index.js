@@ -1,12 +1,12 @@
 (function() {
   var updateInterval = 5000;
-
-  var getTotalUrl = function(timestamp) { return '/api/day/' + timestamp + '/total'; };
-  var getAverageUrl = function(timestamp) { return '/api/day/' + timestamp + '/average'; };
   var charts = {
     '.totals-chart': {},
     '.averages-chart': {}
   };
+
+  var getTotalUrl = function(timestamp) { return '/api/day/' + timestamp + '/total'; };
+  var getAverageUrl = function(timestamp) { return '/api/day/' + timestamp + '/average'; };
 
   var fetchAndHandle = function(url, handler) {
     $.get(url)
@@ -51,7 +51,7 @@
     });
   };
 
-  var initChart = function(selector, data) {
+  var initChart = function(selector, charts, data) {
     var values = _.map(data, 'value');
     var labels = _.map(data, function(item) {
       return moment.utc(item.timestamp).format('MMMM Do');
@@ -65,7 +65,7 @@
     });
   };
 
-  var update = function(counterSelector, chartSelector, value) {
+  var update = function(counterSelector, chartSelector, charts, value) {
     var chartData = charts[chartSelector];
     chartData.values[chartData.values.length - 1] = value;
 
@@ -74,12 +74,27 @@
       series: [chartData.values]
     });
 
+    value = Math.round(value * 100) / 100;
     $(counterSelector).text(value);
   };
 
-  initLast7Days(getTotalUrl, _.partial(initChart, '.totals-chart'));
-  initLast7Days(getAverageUrl, _.partial(initChart, '.averages-chart'));
+  var init = function() {
+    initLast7Days(getTotalUrl, _.partial(initChart, '.totals-chart', charts));
+    initLast7Days(getAverageUrl, _.partial(initChart, '.averages-chart', charts));
 
-  start(getTotalUrl(Date.now()), _.partial(update, '.totals .counter', '.totals-chart'));
-  start(getAverageUrl(Date.now()), _.partial(update, '.averages .counter', '.averages-chart'));
+    start(getTotalUrl(Date.now()), _.partial(update, '.totals .counter .value', '.totals-chart', charts));
+    start(getAverageUrl(Date.now()), _.partial(update, '.averages .counter .value', '.averages-chart', charts));
+  };
+
+  window.testableApi = {
+    getTotalUrl: getTotalUrl,
+    getAverageUrl: getAverageUrl,
+    getLast7Days: getLast7Days,
+    initChart: initChart,
+    update: update
+  };
+
+  window.privateApi = {
+    init: init
+  };
 })();
