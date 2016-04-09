@@ -4,7 +4,13 @@
   "description": "test assignment",
   "main": "server/index.js",
   "scripts": {
-    "test": "echo \"Nothing here for now\" && exit 1"
+    "test": "./node_modules/.bin/mocha ./client/tests && ./node_modules/.bin/mocha ./server/tests && ./node_modules/.bin/karma start karma.conf.js",
+    "client-test": "./node_modules/.bin/mocha ./client/tests",
+    "frontend-test": "./node_modules/.bin/karma start karma.conf.js",
+    "backend-test": "./node_modules/.bin/mocha ./server/tests",
+    "start-server": "node ./server/index.js",
+    "start-client": "node ./client/index.js -r 0",
+    "start-chatty-client": "node ./client/index.js -r 2"
   },
   "author": "ivanbokii",
   "license": "ISC",
